@@ -1,0 +1,11 @@
+{
+  "name": "sony-test",
+  "devDependencies": {
+    "angular-mocks": "~1.2.0",
+    "angular-scenario": "~1.2.0"
+  },
+  "dependencies": {
+    "angular": "~1.2.0",
+    "lodash": "*"
+  }
+}

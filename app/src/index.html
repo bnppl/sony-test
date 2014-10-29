@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sony Test</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- build:js(app/build) js/sony-test.min.js -->
+    <% vendorFiles.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+    <script src="js/templates.js"></script>
+    <% appFiles.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+   <!-- endbuild -->
+   <script>
+     var app = angular.module('demo', ['sony.test'])
+     .controller('demoCtrl', ['$scope', '$http', function ($scope, $http) {
+
+     }]);
+   </script>
+  </head>
+</html>
