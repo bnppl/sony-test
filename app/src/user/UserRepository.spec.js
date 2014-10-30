@@ -20,4 +20,13 @@ describe('userRepository', function () {
     expect(userRepository).toBeTruthy();
   });
 
+  it('should allow you to retrieve a user by name and password', function () {
+
+    //Act
+    var user = userRepository.findByCredentials('username', 'pass');
+
+    //Assert
+    expect(user).toBeTruthy();
+  });
+
 });

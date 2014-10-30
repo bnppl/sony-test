@@ -4,7 +4,11 @@ angular.module('sony.user.userRepository', [])
 
   .factory('userRepository', [function () {
 
-        var userRepository = {};
+        var userRepository = {
+          findByCredentials: function (username, password) {
+            return {};
+          }
+        };
 
         return userRepository;
       }]);
