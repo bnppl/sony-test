@@ -1,6 +1,6 @@
 /* global angular, restResource, console */
 angular.module('sony.controller.login',
-  ['ui.router', 'sony.session.sessionManager'])
+  ['ui.router', 'sony.session.sessionManager', 'sony.controller.dashboard'])
 
   .config(['$stateProvider', function config($stateProvider) {
       $stateProvider.state('login', {
@@ -10,8 +10,8 @@ angular.module('sony.controller.login',
         });
     }])
   .constant('apiEndpoint', 'http://217.18.25.29:10070/')
-  .controller('loginCtrl', ['$scope', 'sessionManager',
-      function ($scope, sessionManager) {
+  .controller('loginCtrl', ['$scope', 'sessionManager', '$state',
+      function ($scope, sessionManager, $state) {
 
         $scope.username = '';
         $scope.password = '';
@@ -22,7 +22,7 @@ angular.module('sony.controller.login',
           if (form.$valid) {
             sessionManager.login($scope.username, $scope.password).then(
               function (response) {
-                console.log('login success');
+                $state.transitionTo('dashboard');
               },
               function (rejection) {
                 $scope.errorMessage = rejection.data.msg;
