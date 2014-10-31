@@ -169,6 +169,7 @@ module.exports = function (grunt) {
       vendor_src: [
         '<%= app.source_dir %>/bower_components/angular/angular.js',
         '<%= app.source_dir %>/bower_components/lodash/dist/lodash.js',
+        '<%= app.source_dir %>/bower_components/angular-ui-router/release/angular-ui-router.js',
       ],
 
       app_src: [

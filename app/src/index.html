@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Sony Test</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <!-- build:js(app/build) js/sony-test.min.js -->
     <% vendorFiles.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
@@ -12,10 +13,14 @@
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
    <!-- endbuild -->
    <script>
-     var app = angular.module('demo', ['sony.test'])
-     .controller('demoCtrl', ['$scope', '$http', function ($scope, $http) {
-
-     }]);
+     var app = angular.module('sony', [
+         'sony.controller.login',
+         'ui.router',
+         'templates-sony-test'
+     ]);
    </script>
   </head>
+  <body ng-app="sony" ng-controller="loginCtrl">
+    <div class="container" ui-view></div>
+  </body>
 </html>

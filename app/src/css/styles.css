@@ -1,0 +1,3 @@
+input.ng-dirty .ng-invalid, .show-errors .ng-invalid {
+  border-color:#f00;
+}

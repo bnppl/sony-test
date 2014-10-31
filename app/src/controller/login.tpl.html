@@ -1,0 +1,23 @@
+<div id="login" >
+  <form class="form-signin" name="login" ng-submit="submitLoginDetails(login)"
+      ng-class="{
+        'show-errors': errorMessage
+      }"
+      novalidate>
+
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <div class="alert-danger" ng-show="errorMessage">
+      {{errorMessage}}
+    </div>
+    <p class="">
+      <input class="form-control" type="text" required="required" autofocus
+          ng-model="username" placeholder="Username">
+    </p>
+
+    <p class="">
+      <input class="form-control" required="required" ng-model="password"
+          type="password" placeholder="Password">
+    </p>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+</div>
