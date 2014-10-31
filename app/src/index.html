@@ -17,7 +17,26 @@
          'sony.controller.login',
          'ui.router',
          'templates-sony-test'
-     ]);
+     ])
+     .config(function ($httpProvider) {
+       var defaultResponseTransformer = $httpProvider.defaults.transformResponse[0];
+       var malformedJsonHandler = function (data) {
+          var response;
+          try {
+            response = defaultResponseTransformer(data);
+          } catch (err) {
+            var scrubbedJson =
+              data.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:/g, '"$2": ');
+            response = defaultResponseTransformer(scrubbedJson);
+          }
+          return response;
+       }
+       $httpProvider.defaults.transformResponse = malformedJsonHandler;
+
+     })
+     .run(function ($state) {
+      $state.transitionTo('login');
+     });
    </script>
   </head>
   <body ng-app="sony" ng-controller="loginCtrl">

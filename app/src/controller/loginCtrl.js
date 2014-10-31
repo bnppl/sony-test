@@ -20,7 +20,14 @@ angular.module('sony.controller.login',
         $scope.submitLoginDetails = function (form) {
 
           if (form.$valid) {
-            sessionManager.login($scope.username, $scope.password);
+            sessionManager.login($scope.username, $scope.password).then(
+              function (response) {
+                console.log('login success');
+              },
+              function (rejection) {
+                $scope.errorMessage = rejection.data.msg;
+              }
+            );
           }
           else {
             $scope.errorMessage = "Please enter your username and password";
