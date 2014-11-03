@@ -1,11 +1,11 @@
-/* global angular */
+/* global angular, console */
 
 angular.module('sony.session.sessionManager',
-  ['sony.session.sessionTokenStorage'])
+  ['sony.session.sessionStorage'])
 
-.factory('sessionManager', ['$http', 'apiEndpoint', 'sessionTokenStorage',
+.factory('sessionManager', ['$http', 'apiEndpoint', 'sessionStorage',
     '$q',
-    function ($http, apiEndpoint, sessionTokenStorage, $q) {
+    function ($http, apiEndpoint, sessionStorage, $q) {
 
       var sessionManager = {
         login: function (username, password) {
@@ -14,7 +14,8 @@ angular.module('sony.session.sessionManager',
 
           $http.get(apiEndpoint + 'signin/' + username + '/' + password)
           .then(function (result) {
-            sessionTokenStorage.setSessionId(result.data.sessionId);
+            sessionStorage.setSessionId(result.data.sessionId);
+            sessionStorage.set('userId', result.data.userId);
             deferred.resolve(result);
           },
           function (rejection) {

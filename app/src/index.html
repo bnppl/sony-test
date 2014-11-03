@@ -19,6 +19,7 @@
          'templates-sony-test'
      ])
      .config(function ($httpProvider) {
+       //JSON returned on error responses is malformed, this will fix it.
        var defaultResponseTransformer = $httpProvider.defaults.transformResponse[0];
        var malformedJsonHandler = function (data) {
           var response;
@@ -31,8 +32,12 @@
           }
           return response;
        }
-       $httpProvider.defaults.transformResponse = malformedJsonHandler;
-
+       $httpProvider.defaults.transformResponse[0] = malformedJsonHandler;
+       $httpProvider.defaults.headers.common['Accept'] = 'application/json';
+       $httpProvider.defaults.headers.post["Content-Type"] =
+               'application/json; charset=utf-8';
+       $httpProvider.defaults.headers.common["Content-Type"] =
+               'application/json; charset=utf-8';
      })
      .run(function ($state) {
       $state.transitionTo('login');

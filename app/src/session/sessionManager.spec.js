@@ -9,15 +9,16 @@ describe('sessionManager', function () {
     "sessionId": "fakeSessionId",
     "userId": "fakeUserId"
   },
-  mockSessionTokenStorage = {
-    setSessionId: function () {}
+  mockSessionStorage = {
+    setSessionId: function () {},
+    set: function () {}
   };
 
   beforeEach(function () {
 
     module('sony.session.sessionManager', function ($provide) {
       $provide.value('apiEndpoint', mockEndpoint);
-      $provide.value('sessionTokenStorage', mockSessionTokenStorage);
+      $provide.value('sessionStorage', mockSessionStorage);
     });
     this.addMatchers(
       {
@@ -67,14 +68,14 @@ describe('sessionManager', function () {
       expect(sessionData).toEqualData(loginResponseBody);
     });
 
-  it('should set the sessionId in the sessionTokenStorage service',
+  it('should set the sessionId in the sessionStorage service',
     function () {
 
       //Arrange
       $httpBackend.expectGET(mockEndpoint + 'signin/username/pass')
       .respond(200, loginResponseBody);
 
-      spyOn(mockSessionTokenStorage, 'setSessionId');
+      spyOn(mockSessionStorage, 'setSessionId');
 
       //Act
       sessionManager.login('username', 'pass');
@@ -82,8 +83,28 @@ describe('sessionManager', function () {
       $scope.$apply();
 
       //Assert
-      expect(mockSessionTokenStorage.setSessionId)
+      expect(mockSessionStorage.setSessionId)
       .toHaveBeenCalledWith('fakeSessionId');
+
+    });
+
+  it('should set the userId as a value on the session storage service',
+    function () {
+
+      //Arrange
+      $httpBackend.expectGET(mockEndpoint + 'signin/username/pass')
+      .respond(200, loginResponseBody);
+
+      spyOn(mockSessionStorage, 'set');
+
+      //Act
+      sessionManager.login('username', 'pass');
+      $httpBackend.flush();
+      $scope.$apply();
+
+      //Assert
+      expect(mockSessionStorage.set)
+      .toHaveBeenCalledWith('userId', 'fakeUserId');
 
     });
 

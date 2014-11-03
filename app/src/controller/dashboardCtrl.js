@@ -1,6 +1,9 @@
 /* global angular, restResource, console */
 angular.module('sony.controller.dashboard',
-  ['ui.router', 'sony.session.sessionManager'])
+  ['ui.router',
+    'sony.session.sessionManager',
+    'sony.user.userManager'
+  ])
 
   .config(['$stateProvider', function config($stateProvider) {
       $stateProvider.state('dashboard', {
@@ -9,8 +12,9 @@ angular.module('sony.controller.dashboard',
           templateUrl: 'controller/dashboard.tpl.html'
         });
     }])
-  .controller('dashboardCtrl', ['$scope', 'sessionManager',
-      function ($scope, sessionManager) {
+  .controller('dashboardCtrl', ['$scope', 'sessionStorage', 'userManager',
+      function ($scope, sessionStorage, userManager) {
 
-          console.log('dashbaord');
-        }]);
+        $scope.user = userManager.findById(sessionStorage.get('userId'));
+
+      }]);

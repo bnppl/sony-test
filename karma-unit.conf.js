@@ -21,6 +21,7 @@ module.exports = function (config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'session/*.js',
+      'user/*.js',
       '**/*.spec.js'
     ],
     preprocessors: {
